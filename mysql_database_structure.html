@@ -1,0 +1,975 @@
+<html data-sandbox-lang="zh" lang="zh-CN" data-doubao-line="2" data-doubao-column="1"><head>
+    <script>window._sandbox_context = {"locale":"zh","sourceCodeType":"html"}</script>
+  <title>Sandbox Document</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script>
+    ;(function (w, d, u, b, n, pc, ga, ae, po, s, p, e, t, pp) {pc = 'precollect';ga
+    = 'getAttribute';ae = 'addEventListener';po = 'PerformanceObserver';s = function
+    (m) {p = [].slice.call(arguments);p.push(Date.now(), location.href);(m == pc ?
+    s.p.a : s.q).push(p)};s.q = [];s.p = { a: [] };w[n] = s;e =
+    document.createElement('script');e.src = u + '?bid=' + b + '&globalName=' +
+    n;e.crossOrigin = u.indexOf('sdk-web') > 0 ? 'anonymous' :
+    'use-credentials';d.getElementsByTagName('head')[0].appendChild(e);if (ae in w)
+    {s.pcErr = function (e) {e = e || w.event;t = e.target || e.srcElement;if (t
+    instanceof Element || t instanceof HTMLElement) {if (t[ga]('integrity'))
+    {w[n](pc, 'sri', t[ga]('href') || t[ga]('src'))} else {w[n](pc, 'st', { tagName:
+    t.tagName, url: t[ga]('href') || t[ga]('src') })}} else {w[n](pc, 'err', e.error)}};s.pcRej = function (e) {e = e || w.event;w[n](pc, 'reject',
+    e.reason || (e.detail && e.detail.reason))};w[ae]('error', s.pcErr,
+    true);w[ae]('unhandledrejection', s.pcRej,
+    true);};if('PerformanceLongTaskTiming' in w) {pp = s.pp = { entries: []
+    };pp.observer = new PerformanceObserver(function (l) {pp.entries =
+    pp.entries.concat(l.getEntries())});pp.observer.observe({ entryTypes:
+    ['longtask']
+    })}})(window,document,'https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js','flow_web','_slardar')
+    window._slardar('init', {
+        bid: 'flow_web',
+        env: 'cn-release-production-samantha',
+        release: '1.0.0.166',
+        pid: 'html_preview_sandbox',
+        plugins: {
+          blankScreen: {
+            screenshot: true,
+            quality: 0.5,
+          },
+        }
+    })
+    window._slardar('start')
+  </script><script src="https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js?bid=flow_web&amp;globalName=_slardar" crossorigin="anonymous"></script><script>
+  (function () {
+    function initPerformanceObserver() {
+  const observer = new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    for (const entry of entries) {
+      if (entry.name === 'first-paint') {
+        window.parent.postMessage(
+          {
+            action: 'Renderer::Performance::FirstPaint'
+          },
+          '*'
+        );
+        // 兼容旧版事件，切换后移除
+        window.parent.postMessage(
+          {
+            action: 'RENDERER:Performance.FirstPaint'
+          },
+          '*'
+        );
+      }
+      if (entry.name === 'first-contentful-paint') {
+        window.parent.postMessage(
+          {
+            action: 'Renderer::Performance::FirstContentfulPaint'
+          },
+          '*'
+        );
+        // 兼容旧版事件，切换后移除
+        window.parent.postMessage(
+          {
+            action: 'RENDERER:Performance.FirstContentfulPaint'
+          },
+          '*'
+        );
+      }
+    }
+  });
+
+  observer.observe({ type: 'paint', buffered: true });
+}
+    initPerformanceObserver()
+  })()
+  </script><script defer="" src="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/lib-polyfill.e70da32b.js" crossorigin="anonymous"></script><script defer="" src="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/lib-react.b340f288.js" crossorigin="anonymous"></script><script defer="" src="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/607.4e72818d.js" crossorigin="anonymous"></script><script defer="" src="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/renderer.1cf63fc3.js" crossorigin="anonymous"></script><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/130.51c6ed8e.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/132.1ad7fa23.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/137.4826468f.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/176.f09bde16.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/22.75bb6966.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/319.7b67925e.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/320.b3e4bd26.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/362.1856819e.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/415.e0fc9124.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/448.dcc04448.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/482.b9db9e7b.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/551.413e2deb.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/60.b47f8587.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/621.c57d6255.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/622.e85254db.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/642.f755842b.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/779.9c587b47.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/789.c9efa241.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/799.4c62bf39.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/js/async/842.48d6ceb5.js" rel="prefetch"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/css/607.bd8cddf5.css" rel="stylesheet" crossorigin="anonymous"><link href="//lf-flow-web-cdn.doubao.com/obj/flow-doubao/html_preview/1.0.0.166/static/css/renderer.123e8698.css" rel="stylesheet" crossorigin="anonymous"><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Inter, system-ui, sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.mx-auto{margin-left:auto;margin-right:auto}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mr-2{margin-right:0.5rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.flex{display:flex}.min-w-full{min-width:100%}.max-w-3xl{max-width:48rem}.max-w-7xl{max-width:80rem}.items-center{align-items:center}.justify-between{justify-content:space-between}.divide-y > :not([hidden]) ~ :not([hidden]){--tw-divide-y-reverse:0;border-top-width:calc(1px * calc(1 - var(--tw-divide-y-reverse)));border-bottom-width:calc(1px * var(--tw-divide-y-reverse))}.divide-gray-200 > :not([hidden]) ~ :not([hidden]){--tw-divide-opacity:1;border-color:rgb(229 231 235 / var(--tw-divide-opacity, 1))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.rounded{border-radius:0.25rem}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border-l-4{border-left-width:4px}.border-primary{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254 / var(--tw-bg-opacity, 1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231 / var(--tw-bg-opacity, 1))}.bg-indigo-100{--tw-bg-opacity:1;background-color:rgb(224 231 255 / var(--tw-bg-opacity, 1))}.bg-primary{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-yellow-100{--tw-bg-opacity:1;background-color:rgb(254 249 195 / var(--tw-bg-opacity, 1))}.p-6{padding:1.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pl-3{padding-left:0.75rem}.text-left{text-align:left}.text-center{text-align:center}.font-sans{font-family:Inter, system-ui, sans-serif}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[clamp\(1\.8rem\2c 4vw\2c 2\.5rem\)\]{font-size:clamp(1.8rem,4vw,2.5rem)}.text-base{font-size:1rem;line-height:1.5rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-normal{font-weight:400}.font-semibold{font-weight:600}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175 / var(--tw-text-opacity, 1))}.text-dark{--tw-text-opacity:1;color:rgb(30 41 59 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-green-800{--tw-text-opacity:1;color:rgb(22 101 52 / var(--tw-text-opacity, 1))}.text-indigo-800{--tw-text-opacity:1;color:rgb(55 48 163 / var(--tw-text-opacity, 1))}.text-primary{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-800{--tw-text-opacity:1;color:rgb(133 77 14 / var(--tw-text-opacity, 1))}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.table-shadow {
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }.section-divider {
+                border-top: 2px solid #e2e8f0;
+                margin: 2rem 0;
+            }.table-header {
+                background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            }.hover\:bg-gray-50:hover{--tw-bg-opacity:1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.hover\:bg-primary\/90:hover{background-color:rgb(59 130 246 / 0.9)}
+    </style><script src="https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/common-monitors.1.16.1.js" crossorigin="anonymous"></script><script src="https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/blank-screen.1.16.1.js" crossorigin="anonymous"></script></head>
+  <body class="bg-gray-50 font-sans text-gray-800" data-doubao-line="42" data-doubao-column="1">
+    
+    <meta charset="UTF-8" data-doubao-line="4" data-doubao-column="5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" data-doubao-line="5" data-doubao-column="5">
+    <title data-doubao-line="6" data-doubao-column="5">MySQL数据库结构详情</title>
+    <script src="https://cdn.tailwindcss.com" data-doubao-line="7" data-doubao-column="5"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" data-doubao-line="8" data-doubao-column="5">
+    <script data-doubao-line="9" data-doubao-column="5">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        accent: '#10b981',
+                        light: '#f8fafc',
+                        dark: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss" data-doubao-line="27" data-doubao-column="5">
+        @layer utilities {
+            .table-shadow {
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
+            .section-divider {
+                border-top: 2px solid #e2e8f0;
+                margin: 2rem 0;
+            }
+            .table-header {
+                background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            }
+        }
+    </style>
+<style>:root {
+    
+    }
+  img[data-key]:not([data-review-status='0']) { object-fit: cover !important; }
+  </style>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl" data-doubao-line="43" data-doubao-column="5" data-doubao-key="0">
+        <!-- 页面标题 -->
+        <header class="mb-10 text-center" data-doubao-line="45" data-doubao-column="9" data-doubao-key="1">
+            <h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-3" data-doubao-line="46" data-doubao-column="13" data-doubao-key="2">MySQL数据库结构详情</h1>
+            <p class="text-gray-600 max-w-3xl mx-auto" data-doubao-line="47" data-doubao-column="13" data-doubao-key="3">完整的数据库表结构定义，包含所有表、字段、数据类型及约束条件</p>
+            <button id="downloadBtn" class="mt-6 bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 flex items-center mx-auto" data-doubao-line="48" data-doubao-column="13" data-doubao-key="4">
+                <i class="fa fa-download mr-2" data-doubao-line="49" data-doubao-column="17" data-doubao-key="5"></i> 下载HTML文件
+            </button>
+        </header>
+
+        <!-- 表结构说明 -->
+        <div class="bg-white rounded-xl p-6 mb-8 table-shadow" data-doubao-line="54" data-doubao-column="9" data-doubao-key="6">
+            <h2 class="text-xl font-semibold mb-4 flex items-center" data-doubao-line="55" data-doubao-column="13" data-doubao-key="7">
+                <i class="fa fa-info-circle text-primary mr-2" data-doubao-line="56" data-doubao-column="17" data-doubao-key="8"></i> 数据库说明
+            </h2>
+            <p class="text-gray-700 mb-4" data-doubao-line="58" data-doubao-column="13" data-doubao-key="9">本数据库用于存储和管理短剧网站的所有数据，包括用户信息、剧集内容、分类、评论互动等。结构设计遵循规范化原则，确保数据完整性和一致性。</p>
+            <p class="text-gray-700" data-doubao-line="59" data-doubao-column="13" data-doubao-key="10">数据库包含四大类表：基础分类表、核心内容表、交互表和扩展功能表，各表之间通过外键关联，形成完整的数据关系网络。</p>
+        </div>
+
+        <!-- 基础分类表 -->
+        <section class="mb-12" data-doubao-line="63" data-doubao-column="9" data-doubao-key="11">
+            <h2 class="text-2xl font-bold mb-6 text-dark border-l-4 border-primary pl-3" data-doubao-line="64" data-doubao-column="13" data-doubao-key="12">
+                <i class="fa fa-folder-open mr-2" data-doubao-line="65" data-doubao-column="17" data-doubao-key="13"></i>基础分类表
+            </h2>
+
+            <!-- 剧集分类表 -->
+            <div class="mb-8" data-doubao-line="69" data-doubao-column="13" data-doubao-key="14">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="70" data-doubao-column="17" data-doubao-key="15">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="71" data-doubao-column="21" data-doubao-key="16">drama_categories <span class="text-gray-500 text-base font-normal" data-doubao-line="71" data-doubao-column="86" data-doubao-key="17">(剧集分类表)</span></h3>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded" data-doubao-line="72" data-doubao-column="21" data-doubao-key="18">基础表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="74" data-doubao-column="17" data-doubao-key="19">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="75" data-doubao-column="21" data-doubao-key="20">
+                        <thead class="table-header" data-doubao-line="76" data-doubao-column="25" data-doubao-key="21">
+                            <tr data-doubao-line="77" data-doubao-column="29" data-doubao-key="22">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="78" data-doubao-column="33" data-doubao-key="23">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="79" data-doubao-column="33" data-doubao-key="24">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="80" data-doubao-column="33" data-doubao-key="25">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="81" data-doubao-column="33" data-doubao-key="26">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="84" data-doubao-column="25" data-doubao-key="27">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="85" data-doubao-column="29" data-doubao-key="28">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="86" data-doubao-column="33" data-doubao-key="29">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="87" data-doubao-column="33" data-doubao-key="30">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="88" data-doubao-column="33" data-doubao-key="31">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="89" data-doubao-column="33" data-doubao-key="32">分类唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="91" data-doubao-column="29" data-doubao-key="33">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="92" data-doubao-column="33" data-doubao-key="34">name</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="93" data-doubao-column="33" data-doubao-key="35">VARCHAR(100)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="94" data-doubao-column="33" data-doubao-key="36">NOT NULL UNIQUE</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="95" data-doubao-column="33" data-doubao-key="37">分类名称（如 "喜剧""悬疑"）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="97" data-doubao-column="29" data-doubao-key="38">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="98" data-doubao-column="33" data-doubao-key="39">created_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="99" data-doubao-column="33" data-doubao-key="40">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="100" data-doubao-column="33" data-doubao-key="41">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="101" data-doubao-column="33" data-doubao-key="42">创建时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="103" data-doubao-column="29" data-doubao-key="43">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="104" data-doubao-column="33" data-doubao-key="44">updated_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="105" data-doubao-column="33" data-doubao-key="45">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="106" data-doubao-column="33" data-doubao-key="46">DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="107" data-doubao-column="33" data-doubao-key="47">最后更新时间（自动维护）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 文章分类表 -->
+            <div data-doubao-line="115" data-doubao-column="13" data-doubao-key="48">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="116" data-doubao-column="17" data-doubao-key="49">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="117" data-doubao-column="21" data-doubao-key="50">article_categories <span class="text-gray-500 text-base font-normal" data-doubao-line="117" data-doubao-column="88" data-doubao-key="51">(文章分类表)</span></h3>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded" data-doubao-line="118" data-doubao-column="21" data-doubao-key="52">基础表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="120" data-doubao-column="17" data-doubao-key="53">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="121" data-doubao-column="21" data-doubao-key="54">
+                        <thead class="table-header" data-doubao-line="122" data-doubao-column="25" data-doubao-key="55">
+                            <tr data-doubao-line="123" data-doubao-column="29" data-doubao-key="56">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="124" data-doubao-column="33" data-doubao-key="57">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="125" data-doubao-column="33" data-doubao-key="58">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="126" data-doubao-column="33" data-doubao-key="59">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="127" data-doubao-column="33" data-doubao-key="60">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="130" data-doubao-column="25" data-doubao-key="61">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="131" data-doubao-column="29" data-doubao-key="62">
+                                <td class="py-3 px-4 text-sm" colspan="4" data-doubao-line="132" data-doubao-column="33" data-doubao-key="63">与 drama_categories 表结构完全相同</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="134" data-doubao-column="29" data-doubao-key="64">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="135" data-doubao-column="33" data-doubao-key="65">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="136" data-doubao-column="33" data-doubao-key="66">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="137" data-doubao-column="33" data-doubao-key="67">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="138" data-doubao-column="33" data-doubao-key="68">分类唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="140" data-doubao-column="29" data-doubao-key="69">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="141" data-doubao-column="33" data-doubao-key="70">name</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="142" data-doubao-column="33" data-doubao-key="71">VARCHAR(100)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="143" data-doubao-column="33" data-doubao-key="72">NOT NULL UNIQUE</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="144" data-doubao-column="33" data-doubao-key="73">分类名称（如 "攻略""资讯"）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="146" data-doubao-column="29" data-doubao-key="74">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="147" data-doubao-column="33" data-doubao-key="75">created_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="148" data-doubao-column="33" data-doubao-key="76">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="149" data-doubao-column="33" data-doubao-key="77">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="150" data-doubao-column="33" data-doubao-key="78">创建时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="152" data-doubao-column="29" data-doubao-key="79">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="153" data-doubao-column="33" data-doubao-key="80">updated_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="154" data-doubao-column="33" data-doubao-key="81">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="155" data-doubao-column="33" data-doubao-key="82">DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="156" data-doubao-column="33" data-doubao-key="83">最后更新时间（自动维护）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" data-doubao-line="164" data-doubao-column="9" data-doubao-key="84"></div>
+
+        <!-- 核心内容表 -->
+        <section class="mb-12" data-doubao-line="167" data-doubao-column="9" data-doubao-key="85">
+            <h2 class="text-2xl font-bold mb-6 text-dark border-l-4 border-primary pl-3" data-doubao-line="168" data-doubao-column="13" data-doubao-key="86">
+                <i class="fa fa-database mr-2" data-doubao-line="169" data-doubao-column="17" data-doubao-key="87"></i>核心内容表
+            </h2>
+
+            <!-- 用户表 -->
+            <div class="mb-8" data-doubao-line="173" data-doubao-column="13" data-doubao-key="88">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="174" data-doubao-column="17" data-doubao-key="89">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="175" data-doubao-column="21" data-doubao-key="90">users <span class="text-gray-500 text-base font-normal" data-doubao-line="175" data-doubao-column="75" data-doubao-key="91">(用户表)</span></h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded" data-doubao-line="176" data-doubao-column="21" data-doubao-key="92">核心表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="178" data-doubao-column="17" data-doubao-key="93">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="179" data-doubao-column="21" data-doubao-key="94">
+                        <thead class="table-header" data-doubao-line="180" data-doubao-column="25" data-doubao-key="95">
+                            <tr data-doubao-line="181" data-doubao-column="29" data-doubao-key="96">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="182" data-doubao-column="33" data-doubao-key="97">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="183" data-doubao-column="33" data-doubao-key="98">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="184" data-doubao-column="33" data-doubao-key="99">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="185" data-doubao-column="33" data-doubao-key="100">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="188" data-doubao-column="25" data-doubao-key="101">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="189" data-doubao-column="29" data-doubao-key="102">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="190" data-doubao-column="33" data-doubao-key="103">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="191" data-doubao-column="33" data-doubao-key="104">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="192" data-doubao-column="33" data-doubao-key="105">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="193" data-doubao-column="33" data-doubao-key="106">用户唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="195" data-doubao-column="29" data-doubao-key="107">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="196" data-doubao-column="33" data-doubao-key="108">username</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="197" data-doubao-column="33" data-doubao-key="109">VARCHAR(50)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="198" data-doubao-column="33" data-doubao-key="110">NOT NULL UNIQUE</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="199" data-doubao-column="33" data-doubao-key="111">用户名（登录用）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="201" data-doubao-column="29" data-doubao-key="112">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="202" data-doubao-column="33" data-doubao-key="113">password</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="203" data-doubao-column="33" data-doubao-key="114">VARCHAR(255)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="204" data-doubao-column="33" data-doubao-key="115">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="205" data-doubao-column="33" data-doubao-key="116">密码哈希值（禁止明文）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="207" data-doubao-column="29" data-doubao-key="117">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="208" data-doubao-column="33" data-doubao-key="118">email</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="209" data-doubao-column="33" data-doubao-key="119">VARCHAR(100)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="210" data-doubao-column="33" data-doubao-key="120">UNIQUE</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="211" data-doubao-column="33" data-doubao-key="121">邮箱（用于找回密码）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="213" data-doubao-column="29" data-doubao-key="122">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="214" data-doubao-column="33" data-doubao-key="123">role</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="215" data-doubao-column="33" data-doubao-key="124">VARCHAR(20)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="216" data-doubao-column="33" data-doubao-key="125">DEFAULT 'user'</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="217" data-doubao-column="33" data-doubao-key="126">角色（'user' 普通用户 /'admin' 管理员）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="219" data-doubao-column="29" data-doubao-key="127">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="220" data-doubao-column="33" data-doubao-key="128">status</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="221" data-doubao-column="33" data-doubao-key="129">VARCHAR(20)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="222" data-doubao-column="33" data-doubao-key="130">DEFAULT 'active'</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="223" data-doubao-column="33" data-doubao-key="131">状态（'active' 正常 /'banned' 封禁）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="225" data-doubao-column="29" data-doubao-key="132">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="226" data-doubao-column="33" data-doubao-key="133">created_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="227" data-doubao-column="33" data-doubao-key="134">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="228" data-doubao-column="33" data-doubao-key="135">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="229" data-doubao-column="33" data-doubao-key="136">注册时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="231" data-doubao-column="29" data-doubao-key="137">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="232" data-doubao-column="33" data-doubao-key="138">updated_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="233" data-doubao-column="33" data-doubao-key="139">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="234" data-doubao-column="33" data-doubao-key="140">DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="235" data-doubao-column="33" data-doubao-key="141">信息更新时间</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 剧集表 -->
+            <div class="mb-8" data-doubao-line="243" data-doubao-column="13" data-doubao-key="142">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="244" data-doubao-column="17" data-doubao-key="143">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="245" data-doubao-column="21" data-doubao-key="144">dramas <span class="text-gray-500 text-base font-normal" data-doubao-line="245" data-doubao-column="76" data-doubao-key="145">(剧集表)</span></h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded" data-doubao-line="246" data-doubao-column="21" data-doubao-key="146">核心表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="248" data-doubao-column="17" data-doubao-key="147">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="249" data-doubao-column="21" data-doubao-key="148">
+                        <thead class="table-header" data-doubao-line="250" data-doubao-column="25" data-doubao-key="149">
+                            <tr data-doubao-line="251" data-doubao-column="29" data-doubao-key="150">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="252" data-doubao-column="33" data-doubao-key="151">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="253" data-doubao-column="33" data-doubao-key="152">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="254" data-doubao-column="33" data-doubao-key="153">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="255" data-doubao-column="33" data-doubao-key="154">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="258" data-doubao-column="25" data-doubao-key="155">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="259" data-doubao-column="29" data-doubao-key="156">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="260" data-doubao-column="33" data-doubao-key="157">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="261" data-doubao-column="33" data-doubao-key="158">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="262" data-doubao-column="33" data-doubao-key="159">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="263" data-doubao-column="33" data-doubao-key="160">剧集唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="265" data-doubao-column="29" data-doubao-key="161">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="266" data-doubao-column="33" data-doubao-key="162">name</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="267" data-doubao-column="33" data-doubao-key="163">VARCHAR(255)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="268" data-doubao-column="33" data-doubao-key="164">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="269" data-doubao-column="33" data-doubao-key="165">剧集名称</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="271" data-doubao-column="29" data-doubao-key="166">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="272" data-doubao-column="33" data-doubao-key="167">link</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="273" data-doubao-column="33" data-doubao-key="168">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="274" data-doubao-column="33" data-doubao-key="169"></td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="275" data-doubao-column="33" data-doubao-key="170">播放链接</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="277" data-doubao-column="29" data-doubao-key="171">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="278" data-doubao-column="33" data-doubao-key="172">description</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="279" data-doubao-column="33" data-doubao-key="173">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="280" data-doubao-column="33" data-doubao-key="174"></td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="281" data-doubao-column="33" data-doubao-key="175">剧情描述</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="283" data-doubao-column="29" data-doubao-key="176">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="284" data-doubao-column="33" data-doubao-key="177">category_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="285" data-doubao-column="33" data-doubao-key="178">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="286" data-doubao-column="33" data-doubao-key="179">FOREIGN KEY (drama_categories.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="287" data-doubao-column="33" data-doubao-key="180">关联的分类 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="289" data-doubao-column="29" data-doubao-key="181">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="290" data-doubao-column="33" data-doubao-key="182">image_path</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="291" data-doubao-column="33" data-doubao-key="183">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="292" data-doubao-column="33" data-doubao-key="184"></td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="293" data-doubao-column="33" data-doubao-key="185">封面图片路径</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="295" data-doubao-column="29" data-doubao-key="186">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="296" data-doubao-column="33" data-doubao-key="187">published_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="297" data-doubao-column="33" data-doubao-key="188">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="298" data-doubao-column="33" data-doubao-key="189">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="299" data-doubao-column="33" data-doubao-key="190">发布时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="301" data-doubao-column="29" data-doubao-key="191">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="302" data-doubao-column="33" data-doubao-key="192">updated_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="303" data-doubao-column="33" data-doubao-key="193">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="304" data-doubao-column="33" data-doubao-key="194">DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="305" data-doubao-column="33" data-doubao-key="195">更新时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="307" data-doubao-column="29" data-doubao-key="196">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="308" data-doubao-column="33" data-doubao-key="197">is_deleted</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="309" data-doubao-column="33" data-doubao-key="198">TINYINT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="310" data-doubao-column="33" data-doubao-key="199">DEFAULT 0</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="311" data-doubao-column="33" data-doubao-key="200">软删除标记（0 = 正常，1 = 已删除）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 文章表 -->
+            <div data-doubao-line="319" data-doubao-column="13" data-doubao-key="201">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="320" data-doubao-column="17" data-doubao-key="202">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="321" data-doubao-column="21" data-doubao-key="203">articles <span class="text-gray-500 text-base font-normal" data-doubao-line="321" data-doubao-column="78" data-doubao-key="204">(文章表)</span></h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded" data-doubao-line="322" data-doubao-column="21" data-doubao-key="205">核心表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="324" data-doubao-column="17" data-doubao-key="206">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="325" data-doubao-column="21" data-doubao-key="207">
+                        <thead class="table-header" data-doubao-line="326" data-doubao-column="25" data-doubao-key="208">
+                            <tr data-doubao-line="327" data-doubao-column="29" data-doubao-key="209">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="328" data-doubao-column="33" data-doubao-key="210">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="329" data-doubao-column="33" data-doubao-key="211">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="330" data-doubao-column="33" data-doubao-key="212">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="331" data-doubao-column="33" data-doubao-key="213">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="334" data-doubao-column="25" data-doubao-key="214">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="335" data-doubao-column="29" data-doubao-key="215">
+                                <td class="py-3 px-4 text-sm" colspan="4" data-doubao-line="336" data-doubao-column="33" data-doubao-key="216">与 dramas 表结构基本相同，不含 link 字段，增加 content 字段</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="338" data-doubao-column="29" data-doubao-key="217">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="339" data-doubao-column="33" data-doubao-key="218">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="340" data-doubao-column="33" data-doubao-key="219">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="341" data-doubao-column="33" data-doubao-key="220">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="342" data-doubao-column="33" data-doubao-key="221">文章唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="344" data-doubao-column="29" data-doubao-key="222">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="345" data-doubao-column="33" data-doubao-key="223">name</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="346" data-doubao-column="33" data-doubao-key="224">VARCHAR(255)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="347" data-doubao-column="33" data-doubao-key="225">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="348" data-doubao-column="33" data-doubao-key="226">文章标题</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="350" data-doubao-column="29" data-doubao-key="227">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="351" data-doubao-column="33" data-doubao-key="228">description</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="352" data-doubao-column="33" data-doubao-key="229">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="353" data-doubao-column="33" data-doubao-key="230"></td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="354" data-doubao-column="33" data-doubao-key="231">文章摘要</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="356" data-doubao-column="29" data-doubao-key="232">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="357" data-doubao-column="33" data-doubao-key="233">category_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="358" data-doubao-column="33" data-doubao-key="234">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="359" data-doubao-column="33" data-doubao-key="235">FOREIGN KEY (article_categories.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="360" data-doubao-column="33" data-doubao-key="236">关联的分类 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="362" data-doubao-column="29" data-doubao-key="237">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="363" data-doubao-column="33" data-doubao-key="238">image_path</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="364" data-doubao-column="33" data-doubao-key="239">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="365" data-doubao-column="33" data-doubao-key="240"></td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="366" data-doubao-column="33" data-doubao-key="241">封面图片路径</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="368" data-doubao-column="29" data-doubao-key="242">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="369" data-doubao-column="33" data-doubao-key="243">content</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="370" data-doubao-column="33" data-doubao-key="244">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="371" data-doubao-column="33" data-doubao-key="245">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="372" data-doubao-column="33" data-doubao-key="246">文章正文内容</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="374" data-doubao-column="29" data-doubao-key="247">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="375" data-doubao-column="33" data-doubao-key="248">published_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="376" data-doubao-column="33" data-doubao-key="249">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="377" data-doubao-column="33" data-doubao-key="250">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="378" data-doubao-column="33" data-doubao-key="251">发布时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="380" data-doubao-column="29" data-doubao-key="252">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="381" data-doubao-column="33" data-doubao-key="253">updated_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="382" data-doubao-column="33" data-doubao-key="254">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="383" data-doubao-column="33" data-doubao-key="255">DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="384" data-doubao-column="33" data-doubao-key="256">更新时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="386" data-doubao-column="29" data-doubao-key="257">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="387" data-doubao-column="33" data-doubao-key="258">is_deleted</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="388" data-doubao-column="33" data-doubao-key="259">TINYINT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="389" data-doubao-column="33" data-doubao-key="260">DEFAULT 0</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="390" data-doubao-column="33" data-doubao-key="261">软删除标记（0 = 正常，1 = 已删除）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" data-doubao-line="398" data-doubao-column="9" data-doubao-key="262"></div>
+
+        <!-- 交互表 -->
+        <section class="mb-12" data-doubao-line="401" data-doubao-column="9" data-doubao-key="263">
+            <h2 class="text-2xl font-bold mb-6 text-dark border-l-4 border-primary pl-3" data-doubao-line="402" data-doubao-column="13" data-doubao-key="264">
+                <i class="fa fa-comments mr-2" data-doubao-line="403" data-doubao-column="17" data-doubao-key="265"></i>交互表
+            </h2>
+
+            <!-- 评论表 -->
+            <div class="mb-8" data-doubao-line="407" data-doubao-column="13" data-doubao-key="266">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="408" data-doubao-column="17" data-doubao-key="267">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="409" data-doubao-column="21" data-doubao-key="268">comments <span class="text-gray-500 text-base font-normal" data-doubao-line="409" data-doubao-column="78" data-doubao-key="269">(评论表)</span></h3>
+                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded" data-doubao-line="410" data-doubao-column="21" data-doubao-key="270">交互表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="412" data-doubao-column="17" data-doubao-key="271">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="413" data-doubao-column="21" data-doubao-key="272">
+                        <thead class="table-header" data-doubao-line="414" data-doubao-column="25" data-doubao-key="273">
+                            <tr data-doubao-line="415" data-doubao-column="29" data-doubao-key="274">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="416" data-doubao-column="33" data-doubao-key="275">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="417" data-doubao-column="33" data-doubao-key="276">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="418" data-doubao-column="33" data-doubao-key="277">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="419" data-doubao-column="33" data-doubao-key="278">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="422" data-doubao-column="25" data-doubao-key="279">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="423" data-doubao-column="29" data-doubao-key="280">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="424" data-doubao-column="33" data-doubao-key="281">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="425" data-doubao-column="33" data-doubao-key="282">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="426" data-doubao-column="33" data-doubao-key="283">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="427" data-doubao-column="33" data-doubao-key="284">评论唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="429" data-doubao-column="29" data-doubao-key="285">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="430" data-doubao-column="33" data-doubao-key="286">content</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="431" data-doubao-column="33" data-doubao-key="287">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="432" data-doubao-column="33" data-doubao-key="288">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="433" data-doubao-column="33" data-doubao-key="289">评论内容</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="435" data-doubao-column="29" data-doubao-key="290">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="436" data-doubao-column="33" data-doubao-key="291">created_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="437" data-doubao-column="33" data-doubao-key="292">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="438" data-doubao-column="33" data-doubao-key="293">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="439" data-doubao-column="33" data-doubao-key="294">评论时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="441" data-doubao-column="29" data-doubao-key="295">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="442" data-doubao-column="33" data-doubao-key="296">article_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="443" data-doubao-column="33" data-doubao-key="297">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="444" data-doubao-column="33" data-doubao-key="298">FOREIGN KEY (articles.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="445" data-doubao-column="33" data-doubao-key="299">关联的文章 ID（可为 NULL）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="447" data-doubao-column="29" data-doubao-key="300">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="448" data-doubao-column="33" data-doubao-key="301">drama_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="449" data-doubao-column="33" data-doubao-key="302">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="450" data-doubao-column="33" data-doubao-key="303">FOREIGN KEY (dramas.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="451" data-doubao-column="33" data-doubao-key="304">关联的短剧 ID（可为 NULL）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="453" data-doubao-column="29" data-doubao-key="305">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="454" data-doubao-column="33" data-doubao-key="306">user_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="455" data-doubao-column="33" data-doubao-key="307">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="456" data-doubao-column="33" data-doubao-key="308">NOT NULL, FOREIGN KEY (users.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="457" data-doubao-column="33" data-doubao-key="309">评论用户 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="459" data-doubao-column="29" data-doubao-key="310">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="460" data-doubao-column="33" data-doubao-key="311">is_deleted</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="461" data-doubao-column="33" data-doubao-key="312">TINYINT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="462" data-doubao-column="33" data-doubao-key="313">DEFAULT 0</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="463" data-doubao-column="33" data-doubao-key="314">软删除标记</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 点赞表 -->
+            <div data-doubao-line="471" data-doubao-column="13" data-doubao-key="315">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="472" data-doubao-column="17" data-doubao-key="316">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="473" data-doubao-column="21" data-doubao-key="317">likes <span class="text-gray-500 text-base font-normal" data-doubao-line="473" data-doubao-column="75" data-doubao-key="318">(点赞表)</span></h3>
+                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded" data-doubao-line="474" data-doubao-column="21" data-doubao-key="319">交互表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="476" data-doubao-column="17" data-doubao-key="320">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="477" data-doubao-column="21" data-doubao-key="321">
+                        <thead class="table-header" data-doubao-line="478" data-doubao-column="25" data-doubao-key="322">
+                            <tr data-doubao-line="479" data-doubao-column="29" data-doubao-key="323">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="480" data-doubao-column="33" data-doubao-key="324">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="481" data-doubao-column="33" data-doubao-key="325">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="482" data-doubao-column="33" data-doubao-key="326">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="483" data-doubao-column="33" data-doubao-key="327">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="486" data-doubao-column="25" data-doubao-key="328">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="487" data-doubao-column="29" data-doubao-key="329">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="488" data-doubao-column="33" data-doubao-key="330">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="489" data-doubao-column="33" data-doubao-key="331">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="490" data-doubao-column="33" data-doubao-key="332">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="491" data-doubao-column="33" data-doubao-key="333">点赞记录唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="493" data-doubao-column="29" data-doubao-key="334">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="494" data-doubao-column="33" data-doubao-key="335">content_type</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="495" data-doubao-column="33" data-doubao-key="336">VARCHAR(20)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="496" data-doubao-column="33" data-doubao-key="337">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="497" data-doubao-column="33" data-doubao-key="338">内容类型（'article'/'drama'）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="499" data-doubao-column="29" data-doubao-key="339">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="500" data-doubao-column="33" data-doubao-key="340">content_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="501" data-doubao-column="33" data-doubao-key="341">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="502" data-doubao-column="33" data-doubao-key="342">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="503" data-doubao-column="33" data-doubao-key="343">关联的内容 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="505" data-doubao-column="29" data-doubao-key="344">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="506" data-doubao-column="33" data-doubao-key="345">user_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="507" data-doubao-column="33" data-doubao-key="346">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="508" data-doubao-column="33" data-doubao-key="347">NOT NULL, FOREIGN KEY (users.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="509" data-doubao-column="33" data-doubao-key="348">点赞用户 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="511" data-doubao-column="29" data-doubao-key="349">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="512" data-doubao-column="33" data-doubao-key="350">created_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="513" data-doubao-column="33" data-doubao-key="351">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="514" data-doubao-column="33" data-doubao-key="352">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="515" data-doubao-column="33" data-doubao-key="353">点赞时间</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="517" data-doubao-column="29" data-doubao-key="354">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="518" data-doubao-column="33" data-doubao-key="355">unique_like</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="519" data-doubao-column="33" data-doubao-key="356">复合索引</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="520" data-doubao-column="33" data-doubao-key="357">(content_type, content_id, user_id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="521" data-doubao-column="33" data-doubao-key="358">避免同一用户重复点赞</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" data-doubao-line="529" data-doubao-column="9" data-doubao-key="359"></div>
+
+        <!-- 扩展功能表 -->
+        <section class="mb-12" data-doubao-line="532" data-doubao-column="9" data-doubao-key="360">
+            <h2 class="text-2xl font-bold mb-6 text-dark border-l-4 border-primary pl-3" data-doubao-line="533" data-doubao-column="13" data-doubao-key="361">
+                <i class="fa fa-puzzle-piece mr-2" data-doubao-line="534" data-doubao-column="17" data-doubao-key="362"></i>扩展功能表
+            </h2>
+
+            <!-- 标签表 -->
+            <div class="mb-8" data-doubao-line="538" data-doubao-column="13" data-doubao-key="363">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="539" data-doubao-column="17" data-doubao-key="364">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="540" data-doubao-column="21" data-doubao-key="365">tags <span class="text-gray-500 text-base font-normal" data-doubao-line="540" data-doubao-column="74" data-doubao-key="366">(标签表)</span></h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded bg-yellow-100 text-yellow-800" data-doubao-line="541" data-doubao-column="21" data-doubao-key="367">扩展表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="543" data-doubao-column="17" data-doubao-key="368">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="544" data-doubao-column="21" data-doubao-key="369">
+                        <thead class="table-header" data-doubao-line="545" data-doubao-column="25" data-doubao-key="370">
+                            <tr data-doubao-line="546" data-doubao-column="29" data-doubao-key="371">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="547" data-doubao-column="33" data-doubao-key="372">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="548" data-doubao-column="33" data-doubao-key="373">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="549" data-doubao-column="33" data-doubao-key="374">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="550" data-doubao-column="33" data-doubao-key="375">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="553" data-doubao-column="25" data-doubao-key="376">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="554" data-doubao-column="29" data-doubao-key="377">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="555" data-doubao-column="33" data-doubao-key="378">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="556" data-doubao-column="33" data-doubao-key="379">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="557" data-doubao-column="33" data-doubao-key="380">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="558" data-doubao-column="33" data-doubao-key="381">标签唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="560" data-doubao-column="29" data-doubao-key="382">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="561" data-doubao-column="33" data-doubao-key="383">name</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="562" data-doubao-column="33" data-doubao-key="384">VARCHAR(50)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="563" data-doubao-column="33" data-doubao-key="385">NOT NULL UNIQUE</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="564" data-doubao-column="33" data-doubao-key="386">标签名称（如 "热门""新上线"）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="566" data-doubao-column="29" data-doubao-key="387">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="567" data-doubao-column="33" data-doubao-key="388">created_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="568" data-doubao-column="33" data-doubao-key="389">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="569" data-doubao-column="33" data-doubao-key="390">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="570" data-doubao-column="33" data-doubao-key="391">创建时间</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 文章-标签关联表 -->
+            <div class="mb-8" data-doubao-line="578" data-doubao-column="13" data-doubao-key="392">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="579" data-doubao-column="17" data-doubao-key="393">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="580" data-doubao-column="21" data-doubao-key="394">article_tags <span class="text-gray-500 text-base font-normal" data-doubao-line="580" data-doubao-column="82" data-doubao-key="395">(文章-标签关联表)</span></h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded bg-yellow-100 text-yellow-800" data-doubao-line="581" data-doubao-column="21" data-doubao-key="396">扩展表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="583" data-doubao-column="17" data-doubao-key="397">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="584" data-doubao-column="21" data-doubao-key="398">
+                        <thead class="table-header" data-doubao-line="585" data-doubao-column="25" data-doubao-key="399">
+                            <tr data-doubao-line="586" data-doubao-column="29" data-doubao-key="400">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="587" data-doubao-column="33" data-doubao-key="401">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="588" data-doubao-column="33" data-doubao-key="402">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="589" data-doubao-column="33" data-doubao-key="403">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="590" data-doubao-column="33" data-doubao-key="404">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="593" data-doubao-column="25" data-doubao-key="405">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="594" data-doubao-column="29" data-doubao-key="406">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="595" data-doubao-column="33" data-doubao-key="407">article_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="596" data-doubao-column="33" data-doubao-key="408">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="597" data-doubao-column="33" data-doubao-key="409">NOT NULL, FOREIGN KEY (articles.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="598" data-doubao-column="33" data-doubao-key="410">关联的文章 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="600" data-doubao-column="29" data-doubao-key="411">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="601" data-doubao-column="33" data-doubao-key="412">tag_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="602" data-doubao-column="33" data-doubao-key="413">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="603" data-doubao-column="33" data-doubao-key="414">NOT NULL, FOREIGN KEY (tags.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="604" data-doubao-column="33" data-doubao-key="415">关联的标签 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="606" data-doubao-column="29" data-doubao-key="416">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="607" data-doubao-column="33" data-doubao-key="417">主键</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="608" data-doubao-column="33" data-doubao-key="418">复合主键</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="609" data-doubao-column="33" data-doubao-key="419">(article_id, tag_id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="610" data-doubao-column="33" data-doubao-key="420">避免重复关联</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 短剧-标签关联表 -->
+            <div class="mb-8" data-doubao-line="618" data-doubao-column="13" data-doubao-key="421">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="619" data-doubao-column="17" data-doubao-key="422">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="620" data-doubao-column="21" data-doubao-key="423">drama_tags <span class="text-gray-500 text-base font-normal" data-doubao-line="620" data-doubao-column="80" data-doubao-key="424">(短剧-标签关联表)</span></h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded bg-yellow-100 text-yellow-800" data-doubao-line="621" data-doubao-column="21" data-doubao-key="425">扩展表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="623" data-doubao-column="17" data-doubao-key="426">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="624" data-doubao-column="21" data-doubao-key="427">
+                        <thead class="table-header" data-doubao-line="625" data-doubao-column="25" data-doubao-key="428">
+                            <tr data-doubao-line="626" data-doubao-column="29" data-doubao-key="429">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="627" data-doubao-column="33" data-doubao-key="430">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="628" data-doubao-column="33" data-doubao-key="431">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="629" data-doubao-column="33" data-doubao-key="432">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="630" data-doubao-column="33" data-doubao-key="433">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="633" data-doubao-column="25" data-doubao-key="434">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="634" data-doubao-column="29" data-doubao-key="435">
+                                <td class="py-3 px-4 text-sm" colspan="4" data-doubao-line="635" data-doubao-column="33" data-doubao-key="436">与 article_tags 表结构完全相同</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="637" data-doubao-column="29" data-doubao-key="437">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="638" data-doubao-column="33" data-doubao-key="438">drama_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="639" data-doubao-column="33" data-doubao-key="439">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="640" data-doubao-column="33" data-doubao-key="440">NOT NULL, FOREIGN KEY (dramas.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="641" data-doubao-column="33" data-doubao-key="441">关联的短剧 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="643" data-doubao-column="29" data-doubao-key="442">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="644" data-doubao-column="33" data-doubao-key="443">tag_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="645" data-doubao-column="33" data-doubao-key="444">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="646" data-doubao-column="33" data-doubao-key="445">NOT NULL, FOREIGN KEY (tags.id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="647" data-doubao-column="33" data-doubao-key="446">关联的标签 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="649" data-doubao-column="29" data-doubao-key="447">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="650" data-doubao-column="33" data-doubao-key="448">主键</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="651" data-doubao-column="33" data-doubao-key="449">复合主键</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="652" data-doubao-column="33" data-doubao-key="450">(drama_id, tag_id)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="653" data-doubao-column="33" data-doubao-key="451">避免重复关联</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider" data-doubao-line="661" data-doubao-column="9" data-doubao-key="452"></div>
+
+        <!-- 统计与配置表 -->
+        <section class="mb-12" data-doubao-line="664" data-doubao-column="9" data-doubao-key="453">
+            <h2 class="text-2xl font-bold mb-6 text-dark border-l-4 border-primary pl-3" data-doubao-line="665" data-doubao-column="13" data-doubao-key="454">
+                <i class="fa fa-cog mr-2" data-doubao-line="666" data-doubao-column="17" data-doubao-key="455"></i>统计与配置表
+            </h2>
+
+            <!-- 统计信息表 -->
+            <div class="mb-8" data-doubao-line="670" data-doubao-column="13" data-doubao-key="456">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="671" data-doubao-column="17" data-doubao-key="457">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="672" data-doubao-column="21" data-doubao-key="458">statistics <span class="text-gray-500 text-base font-normal" data-doubao-line="672" data-doubao-column="80" data-doubao-key="459">(统计信息表)</span></h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded bg-indigo-100 text-indigo-800" data-doubao-line="673" data-doubao-column="21" data-doubao-key="460">系统表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="675" data-doubao-column="17" data-doubao-key="461">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="676" data-doubao-column="21" data-doubao-key="462">
+                        <thead class="table-header" data-doubao-line="677" data-doubao-column="25" data-doubao-key="463">
+                            <tr data-doubao-line="678" data-doubao-column="29" data-doubao-key="464">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="679" data-doubao-column="33" data-doubao-key="465">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="680" data-doubao-column="33" data-doubao-key="466">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="681" data-doubao-column="33" data-doubao-key="467">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="682" data-doubao-column="33" data-doubao-key="468">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="685" data-doubao-column="25" data-doubao-key="469">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="686" data-doubao-column="29" data-doubao-key="470">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="687" data-doubao-column="33" data-doubao-key="471">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="688" data-doubao-column="33" data-doubao-key="472">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="689" data-doubao-column="33" data-doubao-key="473">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="690" data-doubao-column="33" data-doubao-key="474">统计记录唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="692" data-doubao-column="29" data-doubao-key="475">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="693" data-doubao-column="33" data-doubao-key="476">content_type</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="694" data-doubao-column="33" data-doubao-key="477">VARCHAR(20)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="695" data-doubao-column="33" data-doubao-key="478">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="696" data-doubao-column="33" data-doubao-key="479">内容类型（'article'/'drama'）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="698" data-doubao-column="29" data-doubao-key="480">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="699" data-doubao-column="33" data-doubao-key="481">content_id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="700" data-doubao-column="33" data-doubao-key="482">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="701" data-doubao-column="33" data-doubao-key="483">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="702" data-doubao-column="33" data-doubao-key="484">关联的内容 ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="704" data-doubao-column="29" data-doubao-key="485">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="705" data-doubao-column="33" data-doubao-key="486">click_count</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="706" data-doubao-column="33" data-doubao-key="487">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="707" data-doubao-column="33" data-doubao-key="488">DEFAULT 0</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="708" data-doubao-column="33" data-doubao-key="489">点击量（需调用 record_click () 更新）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="710" data-doubao-column="29" data-doubao-key="490">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="711" data-doubao-column="33" data-doubao-key="491">comment_count</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="712" data-doubao-column="33" data-doubao-key="492">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="713" data-doubao-column="33" data-doubao-key="493">DEFAULT 0</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="714" data-doubao-column="33" data-doubao-key="494">评论数（触发器自动更新）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="716" data-doubao-column="29" data-doubao-key="495">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="717" data-doubao-column="33" data-doubao-key="496">like_count</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="718" data-doubao-column="33" data-doubao-key="497">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="719" data-doubao-column="33" data-doubao-key="498">DEFAULT 0</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="720" data-doubao-column="33" data-doubao-key="499">点赞数（触发器自动更新）</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="722" data-doubao-column="29" data-doubao-key="500">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="723" data-doubao-column="33" data-doubao-key="501">update_time</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="724" data-doubao-column="33" data-doubao-key="502">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="725" data-doubao-column="33" data-doubao-key="503">DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="726" data-doubao-column="33" data-doubao-key="504">最后统计更新时间</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 搜索关键词表 -->
+            <div class="mb-8" data-doubao-line="734" data-doubao-column="13" data-doubao-key="505">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="735" data-doubao-column="17" data-doubao-key="506">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="736" data-doubao-column="21" data-doubao-key="507">search_keywords <span class="text-gray-500 text-base font-normal" data-doubao-line="736" data-doubao-column="85" data-doubao-key="508">(搜索关键词表)</span></h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded bg-indigo-100 text-indigo-800" data-doubao-line="737" data-doubao-column="21" data-doubao-key="509">系统表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="739" data-doubao-column="17" data-doubao-key="510">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="740" data-doubao-column="21" data-doubao-key="511">
+                        <thead class="table-header" data-doubao-line="741" data-doubao-column="25" data-doubao-key="512">
+                            <tr data-doubao-line="742" data-doubao-column="29" data-doubao-key="513">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="743" data-doubao-column="33" data-doubao-key="514">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="744" data-doubao-column="33" data-doubao-key="515">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="745" data-doubao-column="33" data-doubao-key="516">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="746" data-doubao-column="33" data-doubao-key="517">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="749" data-doubao-column="25" data-doubao-key="518">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="750" data-doubao-column="29" data-doubao-key="519">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="751" data-doubao-column="33" data-doubao-key="520">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="752" data-doubao-column="33" data-doubao-key="521">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="753" data-doubao-column="33" data-doubao-key="522">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="754" data-doubao-column="33" data-doubao-key="523">关键词唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="756" data-doubao-column="29" data-doubao-key="524">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="757" data-doubao-column="33" data-doubao-key="525">keyword</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="758" data-doubao-column="33" data-doubao-key="526">VARCHAR(100)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="759" data-doubao-column="33" data-doubao-key="527">NOT NULL UNIQUE</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="760" data-doubao-column="33" data-doubao-key="528">搜索关键词</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="762" data-doubao-column="29" data-doubao-key="529">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="763" data-doubao-column="33" data-doubao-key="530">count</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="764" data-doubao-column="33" data-doubao-key="531">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="765" data-doubao-column="33" data-doubao-key="532">DEFAULT 1</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="766" data-doubao-column="33" data-doubao-key="533">搜索次数</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="768" data-doubao-column="29" data-doubao-key="534">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="769" data-doubao-column="33" data-doubao-key="535">last_searched</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="770" data-doubao-column="33" data-doubao-key="536">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="771" data-doubao-column="33" data-doubao-key="537">DEFAULT CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="772" data-doubao-column="33" data-doubao-key="538">最后搜索时间</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 网站设置表 -->
+            <div data-doubao-line="780" data-doubao-column="13" data-doubao-key="539">
+                <div class="flex justify-between items-center mb-4" data-doubao-line="781" data-doubao-column="17" data-doubao-key="540">
+                    <h3 class="text-xl font-semibold text-gray-800" data-doubao-line="782" data-doubao-column="21" data-doubao-key="541">settings <span class="text-gray-500 text-base font-normal" data-doubao-line="782" data-doubao-column="78" data-doubao-key="542">(网站设置表)</span></h3>
+                    <span class="text-xs font-medium px-2.5 py-0.5 rounded bg-indigo-100 text-indigo-800" data-doubao-line="783" data-doubao-column="21" data-doubao-key="543">系统表</span>
+                </div>
+                <div class="overflow-x-auto" data-doubao-line="785" data-doubao-column="17" data-doubao-key="544">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden table-shadow" data-doubao-line="786" data-doubao-column="21" data-doubao-key="545">
+                        <thead class="table-header" data-doubao-line="787" data-doubao-column="25" data-doubao-key="546">
+                            <tr data-doubao-line="788" data-doubao-column="29" data-doubao-key="547">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="789" data-doubao-column="33" data-doubao-key="548">字段名</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="790" data-doubao-column="33" data-doubao-key="549">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="791" data-doubao-column="33" data-doubao-key="550">约束 / 默认值</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700" data-doubao-line="792" data-doubao-column="33" data-doubao-key="551">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" data-doubao-line="795" data-doubao-column="25" data-doubao-key="552">
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="796" data-doubao-column="29" data-doubao-key="553">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="797" data-doubao-column="33" data-doubao-key="554">id</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="798" data-doubao-column="33" data-doubao-key="555">INTEGER</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="799" data-doubao-column="33" data-doubao-key="556">PRIMARY KEY AUTO_INCREMENT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="800" data-doubao-column="33" data-doubao-key="557">设置记录唯一标识</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="802" data-doubao-column="29" data-doubao-key="558">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="803" data-doubao-column="33" data-doubao-key="559">site_name</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="804" data-doubao-column="33" data-doubao-key="560">VARCHAR(255)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="805" data-doubao-column="33" data-doubao-key="561">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="806" data-doubao-column="33" data-doubao-key="562">网站名称</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="808" data-doubao-column="29" data-doubao-key="563">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="809" data-doubao-column="33" data-doubao-key="564">site_url</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="810" data-doubao-column="33" data-doubao-key="565">VARCHAR(255)</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="811" data-doubao-column="33" data-doubao-key="566">NOT NULL</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="812" data-doubao-column="33" data-doubao-key="567">网站域名</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="814" data-doubao-column="29" data-doubao-key="568">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="815" data-doubao-column="33" data-doubao-key="569">site_keywords</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="816" data-doubao-column="33" data-doubao-key="570">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="817" data-doubao-column="33" data-doubao-key="571"></td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="818" data-doubao-column="33" data-doubao-key="572">网站 SEO 关键词</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="820" data-doubao-column="29" data-doubao-key="573">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="821" data-doubao-column="33" data-doubao-key="574">site_description</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="822" data-doubao-column="33" data-doubao-key="575">TEXT</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="823" data-doubao-column="33" data-doubao-key="576"></td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="824" data-doubao-column="33" data-doubao-key="577">网站描述</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors" data-doubao-line="826" data-doubao-column="29" data-doubao-key="578">
+                                <td class="py-3 px-4 text-sm font-medium" data-doubao-line="827" data-doubao-column="33" data-doubao-key="579">updated_at</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="828" data-doubao-column="33" data-doubao-key="580">DATETIME</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="829" data-doubao-column="33" data-doubao-key="581">DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+                                <td class="py-3 px-4 text-sm" data-doubao-line="830" data-doubao-column="33" data-doubao-key="582">设置更新时间</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="mt-16 text-center text-gray-500 text-sm" data-doubao-line="839" data-doubao-column="9" data-doubao-key="583">
+            <p data-doubao-line="840" data-doubao-column="13" data-doubao-key="584">MySQL数据库结构文档 - 最后更新：2025年8月7日</p>
+        </footer>
+    </div>
+
+    <script data-doubao-line="844" data-doubao-column="5" data-doubao-key="585">
+        // 下载HTML文件功能
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // 获取当前页面的HTML内容
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // 创建Blob对象
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // 创建下载链接
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'mysql_database_structure.html';
+            
+            // 触发下载
+            document.body.appendChild(a);
+            a.click();
+            
+            // 清理
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            
+            // 显示提示
+            alert('数据库结构HTML文件已下载');
+        });
+
+        // 表格行悬停效果增强
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.classList.add('bg-blue-50');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('bg-blue-50');
+            });
+        });
+    </script>
+
+
+
+    <div id="root"></div>
+  
+
+<div id="global-shadow-host"></div></body></html>

@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站管理后台开发说明文档（优化版）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        accent: '#722ED1',
+                        success: '#52C41A',
+                        warning: '#FAAD14',
+                        danger: '#FF4D4F',
+                        dark: '#1D2129',
+                        'gray-light': '#F2F3F5',
+                        'gray-medium': '#C9CDD4'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .section-fade {
+                background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(242,243,245,1) 100%);
+            }
+            .code-block {
+                position: relative;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            .copy-btn {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .code-block:hover .copy-btn {
+                opacity: 1;
+            }
+            .api-example {
+                border-left: 4px solid #165DFF;
+            }
+            .anchor-link {
+                opacity: 0;
+                transition: opacity 0.2s;
+                margin-left: 8px;
+            }
+            h3:hover .anchor-link {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-dark">
+    <!-- 顶部导航 -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-primary flex items-center">
+                <i class="fa fa-book mr-2"></i>开发说明文档
+            </h1>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#database-security" class="text-gray-600 hover:text-primary transition-colors">数据库安全</a></li>
+                    <li><a href="#string-filtering" class="text-gray-600 hover:text-primary transition-colors">数据验证</a></li>
+                    <li><a href="#api-structure" class="text-gray-600 hover:text-primary transition-colors">API结构</a></li>
+                    <li><a href="#mvc-architecture" class="text-gray-600 hover:text-primary transition-colors">MVC架构</a></li>
+                    <li><a href="#testing-deployment" class="text-gray-600 hover:text-primary transition-colors">测试部署</a></li>
+                </ul>
+            </nav>
+            <div class="flex items-center gap-3">
+                <div class="relative hidden md:block">
+                    <input type="text" id="searchInput" placeholder="搜索文档..." 
+                        class="pl-9 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm w-48">
+                    <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-2">
+                <ul class="space-y-3 py-2">
+                    <li><a href="#database-security" class="block py-2 text-gray-600 hover:text-primary">数据库安全</a></li>
+                    <li><a href="#string-filtering" class="block py-2 text-gray-600 hover:text-primary">数据验证</a></li>
+                    <li><a href="#api-structure" class="block py-2 text-gray-600 hover:text-primary">API结构</a></li>
+                    <li><a href="#mvc-architecture" class="block py-2 text-gray-600 hover:text-primary">MVC架构</a></li>
+                    <li><a href="#testing-deployment" class="block py-2 text-gray-600 hover:text-primary">测试部署</a></li>
+                    <li class="pt-2">
+                        <input type="text" id="mobileSearchInput" placeholder="搜索文档..." 
+                            class="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm">
+                        <i class="fa fa-search absolute left-[2.5rem] top-[10.8rem] text-gray-400"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- 文档介绍 -->
+        <section class="mb-12 bg-white rounded-xl shadow-sm p-6 md:p-8">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    <i class="fa fa-info text-primary text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold">文档介绍</h2>
+            </div>
+            <p class="text-gray-600 mb-4">本文档详细描述了网站管理后台的开发规范，包括数据库安全设计、数据验证机制、API接口结构、MVC架构实现及测试部署流程。遵循这些规范将确保系统的安全性、可扩展性和可维护性。</p>
+            <div class="flex flex-wrap gap-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
+                    <i class="fa fa-shield mr-1"></i> 安全规范
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-secondary/10 text-secondary">
+                    <i class="fa fa-code mr-1"></i> 开发标准
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent/10 text-accent">
+                    <i class="fa fa-sitemap mr-1"></i> 架构设计
+                </span>
+            </div>
+        </section>
+
+        <!-- 数据库安全设计规范 -->
+        <section id="database-security" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-danger/10 flex items-center justify-center mr-4">
+                    <i class="fa fa-database text-danger text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold">数据库安全设计规范</h2>
+            </div>
+
+            <!-- 防SQL注入措施 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-ban text-danger mr-2"></i>防SQL注入措施
+                    <a href="#database-security" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                <ul class="space-y-4 text-gray-700">
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <div>
+                            <strong>参数化查询</strong>：所有数据库操作必须使用PDO预处理语句，禁止直接拼接SQL字符串
+                            <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>// 正确示例
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+$stmt->execute([':username' => $username]);
+
+// 禁止示例
+$pdo->query("SELECT * FROM users WHERE username = '$username'"); // 危险！</pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <div>
+                            <strong>ORM层封装</strong>：所有数据库交互通过Model层统一处理，封装CRUD操作
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <div>
+                            <strong>输入验证</strong>：对所有用户输入的查询参数进行类型验证和范围校验
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 数据加密策略 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-lock text-success mr-2"></i>数据加密策略
+                    <a href="#database-security" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                <ul class="space-y-4 text-gray-700">
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <div>
+                            <strong>密码存储</strong>：使用<code class="bg-gray-light px-1 py-0.5 rounded">password_hash()</code>和<code class="bg-gray-light px-1 py-0.5 rounded">password_verify()</code>进行密码哈希，禁用MD5等弱哈希算法
+                            <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>// 密码加密存储
+$hashedPassword = password_hash($plainPassword, PASSWORD_DEFAULT);
+
+// 密码验证
+if (password_verify($userInputPassword, $storedHash)) {
+    // 验证成功
+}</pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <div>
+                            <strong>敏感数据加密</strong>：用户邮箱、手机号等敏感信息需加密存储，使用openssl扩展
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <div>
+                            <strong>传输加密</strong>：强制启用HTTPS，配置TLS 1.2+协议
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 权限控制与数据备份 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-key text-accent mr-2"></i>权限控制
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex">
+                            <i class="fa fa-angle-right text-accent mt-1 mr-2"></i>
+                            <span>数据库账户仅授予必要权限（SELECT/INSERT/UPDATE/DELETE）</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fa fa-angle-right text-accent mt-1 mr-2"></i>
+                            <span>数据库服务器仅允许应用服务器IP连接</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fa fa-angle-right text-accent mt-1 mr-2"></i>
+                            <span>数据库密码和应用密钥每90天强制轮换一次</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-backup text-warning mr-2"></i>数据备份与恢复
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex">
+                            <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                            <span>每日凌晨3点自动备份数据库，保留最近30天备份</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                            <span>备份文件存储在与主服务器不同的物理位置</span>
+                        </li>
+                        <li class="flex">
+                            <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                            <span>每月进行一次备份恢复测试，确保备份有效性</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据验证与过滤 -->
+        <section id="string-filtering" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center mr-4">
+                    <i class="fa fa-filter text-secondary text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold">数据验证与过滤</h2>
+            </div>
+
+            <!-- 通用验证规则 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-check-square-o text-secondary mr-2"></i>通用验证规则
+                    <a href="#string-filtering" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr class="bg-gray-light">
+                                <th class="py-3 px-4 text-left text-sm font-medium">数据类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium">验证规则</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium">错误提示</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">字符串</td>
+                                <td class="py-3 px-4 text-sm">
+                                    - 长度限制：1-255字符<br>
+                                    - 特殊字符过滤
+                                </td>
+                                <td class="py-3 px-4 text-sm">请输入1-255个字符</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">整数ID</td>
+                                <td class="py-3 px-4 text-sm">
+                                    - 必须为正整数<br>
+                                    - 范围：1-1000000
+                                </td>
+                                <td class="py-3 px-4 text-sm">请输入有效的ID</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">邮箱</td>
+                                <td class="py-3 px-4 text-sm">
+                                    - 符合邮箱格式规范<br>
+                                    - 长度≤100字符
+                                </td>
+                                <td class="py-3 px-4 text-sm">请输入有效的邮箱地址</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">URL</td>
+                                <td class="py-3 px-4 text-sm">
+                                    - 必须以http/https开头<br>
+                                    - 符合URL格式规范
+                                </td>
+                                <td class="py-3 px-4 text-sm">请输入有效的URL地址</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">日期</td>
+                                <td class="py-3 px-4 text-sm">
+                                    - 格式：YYYY-MM-DD<br>
+                                    - 有效日期范围
+                                </td>
+                                <td class="py-3 px-4 text-sm">请输入有效的日期（YYYY-MM-DD）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 图片上传验证 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-image text-secondary mr-2"></i>图片上传验证
+                    <a href="#string-filtering" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">验证规则</h4>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>格式限制</strong>：仅允许JPG、PNG、WebP格式</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>大小限制</strong>：单个文件不超过5MB</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>尺寸限制</strong>：宽度≤2000px，高度≤2000px</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>内容验证</strong>：检查是否为真实图片文件（防止伪装）</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">处理流程</h4>
+                        <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm h-full">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>/**
+ * 验证并处理上传的图片
+ */
+function processImageUpload($file) {
+    // 验证文件类型
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!in_array($file['type'], $allowedTypes)) {
+        throw new InvalidArgumentException("仅支持JPG、PNG、WebP格式");
+    }
+    
+    // 验证文件大小
+    if ($file['size'] > 5 * 1024 * 1024) { // 5MB
+        throw new InvalidArgumentException("文件大小不能超过5MB");
+    }
+    
+    // 验证图片尺寸
+    list($width, $height) = getimagesize($file['tmp_name']);
+    if ($width > 2000 || $height > 2000) {
+        throw new InvalidArgumentException("图片尺寸不能超过2000x2000px");
+    }
+    
+    // 生成唯一文件名并移动文件
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $filename = uniqid() . '.' . $extension;
+    $uploadPath = UPLOAD_DIR . '/' . $filename;
+    
+    if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
+        throw new RuntimeException("文件上传失败");
+    }
+    
+    return $filename;
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输出编码 -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-code text-dark mr-2"></i>输出编码
+                    <a href="#string-filtering" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">模板输出</h4>
+                        <p class="mb-3 text-gray-700">在视图层渲染时，对所有动态内容进行编码</p>
+                        <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>&lt;!-- 在视图中安全输出 --&gt;
+&lt;div&gt;&lt;?= htmlspecialchars($userInput, ENT_QUOTES, 'UTF-8') ?&gt;&lt;/div&gt;</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">JSON输出</h4>
+                        <p class="mb-3 text-gray-700">API返回JSON数据时使用安全参数</p>
+                        <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>header('Content-Type: application/json');
+echo json_encode($data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API接口结构设计 -->
+        <section id="api-structure" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mr-4">
+                    <i class="fa fa-exchange text-accent text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold">API接口结构设计</h2>
+            </div>
+
+            <!-- 接口规范 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-list-alt text-accent mr-2"></i>接口规范
+                    <a href="#api-structure" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="flex">
+                        <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                            <span class="font-medium text-accent">1</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">基础路径</h4>
+                            <p class="text-gray-600">所有API接口以<code class="bg-gray-light px-1 py-0.5 rounded">/api/v1/</code>为前缀</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                            <span class="font-medium text-accent">2</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">数据格式</h4>
+                            <p class="text-gray-600">请求和响应均使用JSON格式</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                            <span class="font-medium text-accent">3</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">状态码</h4>
+                            <p class="text-gray-600">使用标准HTTP状态码（200成功、400参数错误等）</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                            <span class="font-medium text-accent">4</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">认证方式</h4>
+                            <p class="text-gray-600">使用JWT（JSON Web Token）进行身份验证</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 标准响应格式 -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-medium mb-4 pb-2 border-b border-gray-200">标准响应格式</h4>
+                    
+                    <div class="mb-6">
+                        <h5 class="font-medium mb-2">成功响应</h5>
+                        <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>{
+  "success": true,
+  "code": 200,
+  "message": "操作成功",
+  "data": {
+    // 具体数据内容
+  }
+}</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h5 class="font-medium mb-2">错误响应</h5>
+                        <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>{
+  "success": false,
+  "code": 400,
+  "message": "参数错误",
+  "errors": [
+    "用户名不能为空",
+    "邮箱格式不正确"
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 分页格式 -->
+                <div>
+                    <h4 class="text-lg font-medium mb-4 pb-2 border-b border-gray-200">分页数据格式</h4>
+                    <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                        <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                            <i class="fa fa-copy"></i> 复制
+                        </button>
+                        <pre>{
+  "success": true,
+  "code": 200,
+  "data": {
+    "total": 120,          // 总记录数
+    "page": 1,             // 当前页码
+    "limit": 10,           // 每页条数
+    "pages": 12,           // 总页数
+    "list": [
+      // 数据列表
+    ]
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 错误码体系 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-exclamation-circle text-warning mr-2"></i>错误码体系
+                    <a href="#api-structure" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <p class="text-gray-700 mb-4">错误码由4位数字组成，前1位表示错误类型，后3位表示具体错误：</p>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr class="bg-gray-light">
+                                <th class="py-3 px-4 text-left text-sm font-medium">错误类型</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium">错误码范围</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium">示例错误码</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium">说明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">系统错误</td>
+                                <td class="py-3 px-4 text-sm">1000-1999</td>
+                                <td class="py-3 px-4 text-sm">1001</td>
+                                <td class="py-3 px-4 text-sm">数据库连接失败</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">认证错误</td>
+                                <td class="py-3 px-4 text-sm">2000-2999</td>
+                                <td class="py-3 px-4 text-sm">2001</td>
+                                <td class="py-3 px-4 text-sm">令牌已过期</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">权限错误</td>
+                                <td class="py-3 px-4 text-sm">3000-3999</td>
+                                <td class="py-3 px-4 text-sm">3001</td>
+                                <td class="py-3 px-4 text-sm">没有删除权限</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">参数错误</td>
+                                <td class="py-3 px-4 text-sm">4000-4999</td>
+                                <td class="py-3 px-4 text-sm">4002</td>
+                                <td class="py-3 px-4 text-sm">邮箱格式不正确</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">业务错误</td>
+                                <td class="py-3 px-4 text-sm">5000-5999</td>
+                                <td class="py-3 px-4 text-sm">5001</td>
+                                <td class="py-3 px-4 text-sm">剧集不存在</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm">资源错误</td>
+                                <td class="py-3 px-4 text-sm">6000-6999</td>
+                                <td class="py-3 px-4 text-sm">6001</td>
+                                <td class="py-3 px-4 text-sm">图片上传失败</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 认证流程 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-key text-accent mr-2"></i>认证流程
+                    <a href="#api-structure" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex-1">
+                            <h4 class="font-medium text-lg mb-3">登录获取令牌</h4>
+                            <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>// 请求
+POST /api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "secure_password"
+}
+
+// 响应
+{
+  "success": true,
+  "code": 200,
+  "data": {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expires_in": 3600,  // 1小时有效期
+    "user": {
+      "id": 1,
+      "username": "admin",
+      "role": "administrator"
+    }
+  }
+}</pre>
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1">
+                            <h4 class="font-medium text-lg mb-3">使用令牌访问API</h4>
+                            <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>// 请求头包含令牌
+GET /api/v1/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Type: application/json</pre>
+                            </div>
+                            
+                            <h4 class="font-medium text-lg mb-3 mt-6">刷新令牌</h4>
+                            <div class="code-block bg-gray-light p-4 my-3 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>// 请求
+POST /api/v1/auth/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+
+// 响应
+{
+  "success": true,
+  "code": 200,
+  "data": {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expires_in": 3600
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 权限控制规则 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-shield text-accent mr-2"></i>权限控制规则
+                    <a href="#api-structure" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="mb-6">
+                    <h4 class="font-medium text-lg mb-3">角色定义</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="border border-primary/20 rounded-lg p-4 bg-primary/5">
+                            <div class="font-semibold mb-2 text-primary">管理员（admin）</div>
+                            <p class="text-sm text-gray-600">拥有系统全部操作权限，可管理所有内容和用户</p>
+                        </div>
+                        <div class="border border-secondary/20 rounded-lg p-4 bg-secondary/5">
+                            <div class="font-semibold mb-2 text-secondary">编辑（editor）</div>
+                            <p class="text-sm text-gray-600">可创建和编辑内容，但不能管理用户和系统设置</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <div class="font-semibold mb-2 text-gray-700">查看者（viewer）</div>
+                            <p class="text-sm text-gray-600">仅能查看内容，无创建、编辑和删除权限</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium text-lg mb-3">权限矩阵</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr class="bg-gray-light">
+                                    <th class="py-3 px-4 text-left text-sm font-medium">API端点</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">方法</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium">admin</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium">editor</th>
+                                    <th class="py-3 px-4 text-center text-sm font-medium">viewer</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/users</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-times text-danger"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-times text-danger"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-times text-danger"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas/:id</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-warning/10 text-warning rounded text-xs">PUT</span></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-times text-danger"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas/:id</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-danger/10 text-danger rounded text-xs">DELETE</span></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-times text-danger"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-times text-danger"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/articles</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                    <td class="py-3 px-4 text-center"><i class="fa fa-check text-success"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 接口结构 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8 overflow-hidden">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-sitemap text-accent mr-2"></i>接口结构
+                    <a href="#api-structure" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <!-- 认证接口 -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-medium mb-4 pb-2 border-b border-gray-200">认证接口</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="bg-gray-light">
+                                    <th class="py-3 px-4 text-left text-sm font-medium">端点</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">方法</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">说明</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">请求参数</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">响应</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/auth/login</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                    <td class="py-3 px-4 text-sm">管理员登录</td>
+                                    <td class="py-3 px-4 text-sm font-mono">{username, password}</td>
+                                    <td class="py-3 px-4 text-sm font-mono">{token, user_info}</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/auth/logout</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                    <td class="py-3 px-4 text-sm">退出登录</td>
+                                    <td class="py-3 px-4 text-sm font-mono">{token}</td>
+                                    <td class="py-3 px-4 text-sm font-mono">{success: true}</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-mono">/api/v1/auth/refresh</td>
+                                    <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                    <td class="py-3 px-4 text-sm">刷新令牌</td>
+                                    <td class="py-3 px-4 text-sm font-mono">{refresh_token}</td>
+                                    <td class="py-3 px-4 text-sm font-mono">{new_token}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- 核心业务接口 -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- 用户管理接口 -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4 pb-2 border-b border-gray-200">用户管理接口</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="bg-gray-light">
+                                        <th class="py-3 px-4 text-left text-sm font-medium">端点</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">方法</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/users</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取用户列表</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/users/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取单个用户</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/users</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                        <td class="py-3 px-4 text-sm">创建用户</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/users/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-warning/10 text-warning rounded text-xs">PUT</span></td>
+                                        <td class="py-3 px-4 text-sm">更新用户</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/users/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-danger/10 text-danger rounded text-xs">DELETE</span></td>
+                                        <td class="py-3 px-4 text-sm">删除用户</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- 剧集管理接口 -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4 pb-2 border-b border-gray-200">剧集管理接口</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="bg-gray-light">
+                                        <th class="py-3 px-4 text-left text-sm font-medium">端点</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">方法</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取剧集列表</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取单个剧集</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                        <td class="py-3 px-4 text-sm">创建剧集</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-warning/10 text-warning rounded text-xs">PUT</span></td>
+                                        <td class="py-3 px-4 text-sm">更新剧集</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/dramas/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-danger/10 text-danger rounded text-xs">DELETE</span></td>
+                                        <td class="py-3 px-4 text-sm">删除剧集</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <!-- 文章管理接口 -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4 pb-2 border-b border-gray-200">文章管理接口</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="bg-gray-light">
+                                        <th class="py-3 px-4 text-left text-sm font-medium">端点</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">方法</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/articles</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取文章列表</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/articles/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取单篇文章</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/articles</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                        <td class="py-3 px-4 text-sm">创建文章</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/articles/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-warning/10 text-warning rounded text-xs">PUT</span></td>
+                                        <td class="py-3 px-4 text-sm">更新文章</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/articles/:id</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-danger/10 text-danger rounded text-xs">DELETE</span></td>
+                                        <td class="py-3 px-4 text-sm">删除文章</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- 分类与标签接口 -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4 pb-2 border-b border-gray-200">分类与标签接口</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="bg-gray-light">
+                                        <th class="py-3 px-4 text-left text-sm font-medium">端点</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">方法</th>
+                                        <th class="py-3 px-4 text-left text-sm font-medium">说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/categories</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取分类列表</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/categories</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                        <td class="py-3 px-4 text-sm">创建分类</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/tags</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs">GET</span></td>
+                                        <td class="py-3 px-4 text-sm">获取标签列表</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/tags</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                        <td class="py-3 px-4 text-sm">创建标签</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-3 px-4 text-sm font-mono">/api/v1/clicks</td>
+                                        <td class="py-3 px-4 text-sm"><span class="px-2 py-1 bg-success/10 text-success rounded text-xs">POST</span></td>
+                                        <td class="py-3 px-4 text-sm">记录点击量</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片上传接口示例 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-upload text-accent mr-2"></i>图片上传接口示例
+                    <a href="#api-structure" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-medium text-lg mb-4">上传剧集封面</h4>
+                        
+                        <div class="mb-4">
+                            <h5 class="font-medium text-sm uppercase text-gray-500 mb-2">请求</h5>
+                            <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>POST /api/v1/upload/image
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Type: multipart/form-data
+
+FormData: {
+  "image": [二进制图片文件],
+  "type": "drama_cover"
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-lg mb-4">响应结果</h4>
+                        
+                        <div>
+                            <h5 class="font-medium text-sm uppercase text-gray-500 mb-2">成功响应</h5>
+                            <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>{
+  "success": true,
+  "code": 200,
+  "data": {
+    "url": "https://example.com/uploads/202306/drama/abc123.jpg",
+    "width": 800,
+    "height": 450,
+    "size": 124500,
+    "format": "jpg"
+  }
+}</pre>
+                            </div>
+                            
+                            <h5 class="font-medium text-sm uppercase text-gray-500 mb-2 mt-4">错误响应</h5>
+                            <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                                <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                    <i class="fa fa-copy"></i> 复制
+                                </button>
+                                <pre>{
+  "success": false,
+  "code": 6001,
+  "message": "图片上传失败",
+  "errors": [
+    "文件大小不能超过5MB"
+  ]
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 接口安全 -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-shield text-accent mr-2"></i>接口安全
+                    <a href="#api-structure" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <span><strong>请求频率限制</strong>：每个IP每分钟最多60次请求</span>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <span><strong>CORS配置</strong>：限制允许的域名访问API</span>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <span><strong>数据验证</strong>：所有API请求参数必须经过验证 middleware</span>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <span><strong>敏感操作日志</strong>：记录所有删除、修改等敏感操作的详细日志</span>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <span><strong>HTTPS强制</strong>：所有API通信必须通过HTTPS加密传输</span>
+                    </li>
+                    <li class="flex">
+                        <i class="fa fa-check-circle text-success mt-1 mr-3 flex-shrink-0"></i>
+                        <span><strong>JWT签名算法</strong>：使用HS256算法对令牌进行签名验证</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- MVC架构实现规范 -->
+        <section id="mvc-architecture" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    <i class="fa fa-cubes text-primary text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold">MVC架构实现规范</h2>
+            </div>
+
+            <!-- 目录结构 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-folder-open text-primary mr-2"></i>项目目录结构
+                    <a href="#mvc-architecture" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                    <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                        <i class="fa fa-copy"></i> 复制
+                    </button>
+                    <pre>project/
+├── app/
+│   ├── Controllers/       # 控制器
+│   │   ├── AuthController.php
+│   │   ├── UserController.php
+│   │   ├── DramaController.php
+│   │   └── ...
+│   ├── Models/            # 模型
+│   │   ├── User.php
+│   │   ├── Drama.php
+│   │   └── ...
+│   ├── Views/             # 视图
+│   │   ├── layouts/       # 布局模板
+│   │   ├── users/         # 用户相关视图
+│   │   └── ...
+│   ├── Middleware/        # 中间件
+│   │   ├── Auth.php       # 认证中间件
+│   │   ├── Permission.php # 权限中间件
+│   │   └── ...
+│   └── Helpers/           # 工具函数
+├── config/                # 配置文件
+├── public/                # 公共目录
+│   ├── css/
+│   ├── js/
+│   ├── uploads/           # 上传文件
+│   └── index.php          # 入口文件
+├── routes/                # 路由定义
+│   ├── web.php            # 网页路由
+│   └── api.php            # API路由
+├── storage/               # 存储目录
+│   ├── logs/              # 日志文件
+│   └── cache/             # 缓存文件
+├── tests/                 # 测试文件
+├── .env                   # 环境变量
+└── composer.json          # 依赖管理</pre>
+                </div>
+            </div>
+
+            <!-- 各层职责 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-sitemap text-primary mr-2"></i>各层职责
+                    <a href="#mvc-architecture" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border border-primary/20 rounded-lg p-5 bg-primary/5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                                <span class="font-bold text-primary">M</span>
+                            </div>
+                            <h4 class="font-semibold text-lg">Model层</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                                <span>负责数据访问和业务逻辑</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                                <span>与数据库交互，处理数据验证</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                                <span>不包含任何HTML输出</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                                <span>示例：User.php, Drama.php</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border border-secondary/20 rounded-lg p-5 bg-secondary/5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center mr-3">
+                                <span class="font-bold text-secondary">V</span>
+                            </div>
+                            <h4 class="font-semibold text-lg">View层</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-secondary mt-1 mr-2"></i>
+                                <span>仅负责展示数据</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-secondary mt-1 mr-2"></i>
+                                <span>包含HTML、CSS和少量JS</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-secondary mt-1 mr-2"></i>
+                                <span>不包含复杂业务逻辑</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-secondary mt-1 mr-2"></i>
+                                <span>示例：users/index.php</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border border-accent/20 rounded-lg p-5 bg-accent/5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                                <span class="font-bold text-accent">C</span>
+                            </div>
+                            <h4 class="font-semibold text-lg">Controller层</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-accent mt-1 mr-2"></i>
+                                <span>接收和处理用户请求</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-accent mt-1 mr-2"></i>
+                                <span>调用Model处理数据</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-accent mt-1 mr-2"></i>
+                                <span>选择合适的View展示</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-accent mt-1 mr-2"></i>
+                                <span>示例：UserController.php</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中间件与路由 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-random text-primary mr-2"></i>中间件与路由
+                    <a href="#mvc-architecture" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">路由定义示例</h4>
+                        <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>// routes/api.php
+use App\Controllers\DramaController;
+use App\Middleware\Auth;
+use App\Middleware\Permission;
+
+// API路由组
+$router->group('/api/v1', function($router) {
+    // 公开路由
+    $router->post('/auth/login', 'AuthController@login');
+    
+    // 需要认证的路由
+    $router->group('', [
+        'middleware' => Auth::class
+    ], function($router) {
+        // 认证相关
+        $router->post('/auth/logout', 'AuthController@logout');
+        $router->post('/auth/refresh', 'AuthController@refresh');
+        
+        // 剧集管理
+        $router->get('/dramas', 'DramaController@index');
+        $router->get('/dramas/{id}', 'DramaController@show');
+        
+        // 需要管理员权限的路由
+        $router->group('', [
+            'middleware' => [Permission::class, 'admin']
+        ], function($router) {
+            $router->post('/dramas', 'DramaController@store');
+            $router->put('/dramas/{id}', 'DramaController@update');
+            $router->delete('/dramas/{id}', 'DramaController@destroy');
+        });
+    });
+});</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">权限中间件示例</h4>
+                        <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>// app/Middleware/Permission.php
+namespace App\Middleware;
+
+class Permission {
+    public function handle($request, $next, $role = 'editor') {
+        // 获取当前登录用户
+        $user = $request->user;
+        
+        // 检查用户角色是否符合要求
+        if (!$this->hasPermission($user, $role)) {
+            return response()->json([
+                'success' => false,
+                'code' => 3001,
+                'message' => '没有操作权限'
+            ], 403);
+        }
+        
+        // 继续处理请求
+        return $next($request);
+    }
+    
+    private function hasPermission($user, $requiredRole) {
+        // 角色权限层级：admin > editor > viewer
+        $roles = ['viewer' => 1, 'editor' => 2, 'admin' => 3];
+        
+        // 检查用户角色是否存在且权限足够
+        return isset($roles[$user->role]) && 
+               $roles[$user->role] >= $roles[$requiredRole];
+    }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 错误处理 -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <i class="fa fa-exclamation-circle text-warning mr-2"></i>错误处理
+                    <a href="#mvc-architecture" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">全局异常处理</h4>
+                        <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                            <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                                <i class="fa fa-copy"></i> 复制
+                            </button>
+                            <pre>// app/Exceptions/Handler.php
+namespace App\Exceptions;
+
+class Handler {
+    public function handle($exception) {
+        // 记录错误日志
+        $this->logError($exception);
+        
+        // 根据环境返回不同详细程度的错误信息
+        if (env('APP_ENV') === 'production') {
+            return $this->productionResponse($exception);
+        } else {
+            return $this->developmentResponse($exception);
+        }
+    }
+    
+    private function productionResponse($exception) {
+        // 生产环境返回简化的错误信息
+        $code = method_exists($exception, 'getCode') ? $exception->getCode() : 500;
+        $message = $exception->getMessage() ?: '服务器内部错误';
+        
+        return response()->json([
+            'success' => false,
+            'code' => $code,
+            'message' => $message
+        ], $this->getHttpStatusCode($code));
+    }
+    
+    // 其他方法...
+}</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">日志记录规范</h4>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span><strong>日志格式</strong>：时间戳 | 错误级别 | 用户ID | 操作IP | 错误信息 | 堆栈跟踪</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span><strong>日志分级</strong>：DEBUG（调试）、INFO（信息）、WARNING（警告）、ERROR（错误）、CRITICAL（严重错误）</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span><strong>日志存储</strong>：按日期分片存储（如：2023-06-15.log），保留30天日志</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span><strong>敏感信息处理</strong>：日志中自动脱敏密码、令牌等敏感信息</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 测试与部署规范 -->
+        <section id="testing-deployment" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-warning/10 flex items-center justify-center mr-4">
+                    <i class="fa fa-rocket text-warning text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold">测试与部署规范</h2>
+            </div>
+
+            <!-- 测试策略 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-check-square-o text-warning mr-2"></i>测试策略
+                    <a href="#testing-deployment" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">单元测试</h4>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>测试Model层的数据处理逻辑</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>测试工具函数的正确性</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>使用PHPUnit框架编写测试用例</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>代码覆盖率要求≥80%</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">API测试</h4>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>测试所有API端点的请求响应</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>验证请求参数校验逻辑</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>测试权限控制是否生效</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>使用Postman或编写自动化测试</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium text-lg mb-3">前端测试</h4>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>测试响应式布局在不同设备的表现</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>验证表单提交和数据展示逻辑</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>测试API错误处理和提示</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fa fa-angle-right text-warning mt-1 mr-2"></i>
+                                <span>兼容主流浏览器（Chrome、Firefox、Safari）</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <h4 class="font-medium text-lg mb-3">API自动化测试示例</h4>
+                    <div class="code-block bg-gray-light p-4 font-mono text-sm">
+                        <button class="copy-btn bg-white text-gray-600 px-2 py-1 rounded text-xs" onclick="copyCode(this)">
+                            <i class="fa fa-copy"></i> 复制
+                        </button>
+                        <pre>// tests/Api/DramaApiTest.php
+class DramaApiTest extends TestCase {
+    protected $token;
+    
+    // 测试前获取认证令牌
+    protected function setUp(): void {
+        parent::setUp();
+        $response = $this->post('/api/v1/auth/login', [
+            'username' => 'test_admin',
+            'password' => 'password123'
+        ]);
+        $this->token = $response->json('data.access_token');
+    }
+    
+    // 测试获取剧集列表
+    public function testGetDramas() {
+        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+                         ->get('/api/v1/dramas?page=1&limit=10');
+                         
+        $response->assertStatus(200)
+                 ->assertJson([
+                     'success' => true,
+                     'code' => 200
+                 ])
+                 ->assertJsonStructure([
+                     'data' => [
+                         'total',
+                         'page',
+                         'limit',
+                         'list' => [
+                             '*' => [
+                                 'id',
+                                 'name',
+                                 'description'
+                             ]
+                         ]
+                     ]);
+    }
+    
+    // 其他测试方法...
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 部署规范 -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <i class="fa fa-server text-warning mr-2"></i>部署规范
+                    <a href="#testing-deployment" class="anchor-link text-gray-400 hover:text-primary">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h3>
+                
+                <div class="mb-8">
+                    <h4 class="font-medium text-lg mb-3">环境配置</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr class="bg-gray-light">
+                                    <th class="py-3 px-4 text-left text-sm font-medium">配置项</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">开发环境</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">测试环境</th>
+                                    <th class="py-3 px-4 text-left text-sm font-medium">生产环境</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-medium">调试模式</td>
+                                    <td class="py-3 px-4 text-sm">开启（DEBUG=true）</td>
+                                    <td class="py-3 px-4 text-sm">关闭</td>
+                                    <td class="py-3 px-4 text-sm">关闭</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm font-medium">错误显示</td>
+                                    <td class="py-3 px-4 text-sm">显示详细错误</td>
+                                    <td class="py-3 px-4 text-sm">显示错误ID</td>
+                                    <td class="py-3 px-4 text-sm">显示通用提示</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    
